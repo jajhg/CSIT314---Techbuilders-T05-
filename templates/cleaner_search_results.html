@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header>Search Results</header>
+    
+    {% if services %}
+        <div class="users-container">
+            {% for service in services %}
+            <div class="user-card">
+                <div class="user-header">
+                    <h3>  <a href="{{ url_for('homeowner_view_service_details', service_id=service.id) }}" style="text-decoration: none; color: inherit;">
+                        {{ service.title }}</a></h3>
+                    <span class="user-type-badge">{{ service.type_of_cleaning|title }}</span>
+                </div>
+                
+                <div class="user-details">
+                    <p><strong>Description:</strong> {{ service.description }}</p>
+                    <p><strong>Location:</strong> {{ service.location }} ({{ service.postal_code }})</p>
+                    <p><strong>Rate:</strong> ${{ "%.2f"|format(service.rate) }} {{ service.rate_type|format_rate_type }}</p>
+                    <p><strong>Availability:</strong> {{ service.available_day|title }}, {{ service.time_slot|title }}</p>
+                    {% if service.languages %}
+                    <p><strong>Languages:</strong> {{ service.languages }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No services found matching your criteria. <a href="{{ url_for('create_service') }}" class="alert-link">Create your first service here.</a>.
+        </div>
+    {% endif %}
+    
+    <br>
+    <div class="form-footer">
+        <a href="{{ url_for('cleaner_dashboard') }}" class="back-link">
+            Back to Dashboard
+        </a>
+        <button type="submit" class="btn btn-primary">
+            Search Services
+        </button>
+    </div>
+</div>
+{% endblock %}

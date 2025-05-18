@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    .alert-success {
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+    .alert-error {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+</style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Common header/navigation can go here -->
+        <div class="user-status">
+            {% if 'username' in session %}
+                <p style="text-align: right;">
+                    <p style="text-align: right;">
+                        Logged in as: {{ session['username'] }} ({{ session['user_type'] }})
+                        | <a href="{{ url_for('logout') }}">Logout</a>
+                        <br>
+                    </p>
+                </p>
+            {% endif %}
+        </div>
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(category_filter=["message", "info", "warning", "success"]) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        
+                            <li>{{ message }}</li>
+                       
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Main content block -->
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

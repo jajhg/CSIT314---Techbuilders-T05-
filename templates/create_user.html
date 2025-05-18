@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Create User{% endblock %}
+
+{% block content %}
+<div class="create-user-container">
+    <h1 class="create-user-header">Create User</h1>
+    
+    <form class="create-user-form" action="{{ url_for('create_user') }}" method="POST">
+        <div class="form-section">
+            <div class="input-box">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required style="width: 100%; height: 45px;">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-section">
+            <div class="input-box">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required style="width: 100%; height: 45px;">
+            </div>
+        </div>
+        <br>
+    
+        <div class="form-section">
+            <div class="input-box">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your Full name" required style="width: 100%; height: 45px;">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-section">
+            <div class="input-box">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your Phone Number" required style="width: 100%; height: 45px;">
+            </div>
+            <br>
+            <div class="input-box">
+                <label for="dateOfBirth">Date of Birth</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth" required style="width: 100%; height: 45px;">
+            </div>
+        </div>
+        <br>
+        
+        <div class="gender-box">
+            <h3>Gender</h3>
+            <div class="gender-option">
+                <div class="gender">
+                    <input type="radio" id="check-male" name="gender" value="male" checked>
+                    <label for="check-male">Male</label>
+                </div>
+                <div class="gender">
+                    <input type="radio" id="check-female" name="gender" value="female">
+                    <label for="check-female">Female</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <label for="UserProfile">User Profile</label>
+            <br>
+            <br>
+            <select class="user-profile-select" name="UserProfile" id="UserProfile" required>
+                <option value="User Admin">User Admin</option>
+                <option value="Cleaner">Cleaner</option>
+                <option value="HomeOwner">HomeOwner</option>
+                <option value="Platform Management">Platform Management</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('home') }}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Home Page
+            </a>
+            <button type="submit" class="form-submit-btn">Create User</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

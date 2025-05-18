@@ -1,0 +1,13 @@
+<h2>Your Shortlisted Services</h2>
+
+<form method="GET" action="{{ url_for('homeowner_shortlist.view_shortlist') }}">
+    <input type="text" name="search" placeholder="Search services..." value="{{ search }}">
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    {% for service in services %}
+        <li>{{ service.service_name }} - {{ service.description }}</li>
+    {% else %}
+        <li>No saved services found.</li>
+    {% endfor %}

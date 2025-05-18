@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Search Users{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header>Search Users</header>
+    
+    <form method="POST" class="form">
+        <div class="form-row">
+            <div class="input-box" style="flex: 2;">
+              <label>Search Term</label>
+              <input type="text" name="search_term"
+                     value="{{ search_term if search_term }}"
+                     placeholder="Search by username, full name, or phone number">
+            </div>
+            <div class="input-box" style="flex: 1;">
+              <label>User Profile</label>
+              <select name="user_profile" style="width: 100%; height: 45px;">
+                <option value="">All Profiles</option>
+                <option value="User Admin">User Admin</option>
+                <option value="Cleaner">Cleaner</option>
+                <option value="HomeOwner">HomeOwner</option>
+                <option value="Platform Management">Platform Management</option>
+              </select>
+            </div>
+          </div>
+        <div class="form-actions">
+            <a href="{{ url_for('admin_dashboard') }}" class="back-link">Back to Dashboard</a>
+            <button type="submit" class="form-submit-btn">Search</button>
+        </div> 
+    </form>
+    
+    {% if users is defined %}
+        <div class="users-container">
+            {% if users %}
+                {% for user in users %}
+                <div class="user-card">
+                    <div class="user-header">
+                        <h3>{{ user.fullname }}</h3>
+                        <span class="user-type-badge">{{ user.profile.user_type }}</span>
+                    </div>
+                    
+                    <div class="user-details">
+                        <p><strong>User ID:</strong> {{ user.id }}</p>
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        {% if user.phone %}<p><strong>Phone:</strong> {{ user.phone }}</p>{% endif %}
+                        <p><strong>Status:</strong> 
+                            <span class="status-badge {{ 'active' if not user.is_suspended else 'suspended' }}">
+                                {{ 'Active' if not user.is_suspended else 'Suspended' }}
+                            </span>
+                        </p>
+                        <p><strong>Full Name:</strong> {{ user.fullname }}</p>
+                        <p><strong>Phone:</strong> {{ user.phone }}</p>
+                        <p><strong>Date of Birth:</strong> {{ user.date_of_birth.strftime('%d-%m-%Y') }}</p>
+                        <p><strong>Gender:</strong> {{ user.gender|capitalize }}</p>
+                    </div>
+                    
+                    <div class="user-actions" style="display: flex; gap: 10px;">
+                        <a href="{{ url_for('update_user', user_id=user.id) }}" class="btn btn-update">Update</a>
+                        {% if user.is_suspended %}
+                            <a href="{{ url_for('unsuspend_user', user_id=user.id) }}"
+                                class="btn btn-success"
+                                onclick="return confirm('Are you sure you want to unsuspend this user?')">Unsuspend</a>
+                        {% else %}
+                            <a href="{{ url_for('suspend_user', user_id=user.id) }}" 
+                                class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to suspend this user?')">Suspend</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <p>No users found matching your search criteria.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

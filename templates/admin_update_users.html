@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Update User{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header>Update User: {{ user.username }}</header>
+    
+    <form action="{{ url_for('update_user', user_id=user.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to update this user?')">
+        
+        <div class="input-box">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" value="{{ user.fullname }}" required style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" value="{{ user.phone }}" required style="width: 100%; height: 45px;">
+            {% if phone_error %}
+                <span class="error-message">{{ phone_error }}</span>
+            {% endif %}
+        </div>
+        <br>
+        <div class="form-section">
+            <label for="UserProfile">User Profile</label>
+            <br>
+            <br>
+            <select class="user-profile-select" name="UserProfile" id="UserProfile" required>
+            <option value="User Admin" {% if user.profile.user_type == 'User Admin' %}selected{% endif %}>User Admin</option>
+            <option value="Cleaner" {% if user.profile.user_type == 'Cleaner' %}selected{% endif %}>Cleaner</option>
+            <option value="HomeOwner" {% if user.profile.user_type == 'HomeOwner' %}selected{% endif %}>HomeOwner</option>
+            <option value="Platform Management" {% if user.profile.user_type == 'Platform Management' %}selected{% endif %}>Platform Management</option>
+            </select>
+        </div>
+
+        <div class="action-buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
+            <a href="{{ url_for('manage_users') }}" class="action-btn cancel-btn">Cancel</a>
+            <button type="submit" class="action-btn update-btn">Confirm Update</button>
+        </div>
+
+        
+    </form>
+    
+    <br>
+</div>
+    <a href="{{ url_for('admin_dashboard') }}" class="back-link">Back to Dashboard</a>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Update Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header>Update Service: {{ service.title }}</header>
+    
+    <form method="POST" action="{{ url_for('update_service', service_id=service.id) }}">
+        <!-- Basic Info -->
+        <div class="input-box">
+            <label for="title">Service Title</label>
+            <input type="text" id="title" name="title" value="{{ service.title }}" required style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required style="width: 100%; height: 45px;">{{ service.description }}</textarea>
+        </div>
+        <br>
+        <!-- Location -->
+        <div class="input-box">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" value="{{ service.location }}" required style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="postal_code">Postal Code</label>
+            <input type="text" id="postal_code" name="postal_code" value="{{ service.postal_code }}" required style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <!-- Pricing -->
+        <div class="input-box">
+            <label for="rate">Rate ($)</label>
+            <input type="number" step="0.01" id="rate" name="rate" value="{{ "%.2f"|format(service.rate) }}" required style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="rate_type">Rate Type</label>
+            <select id="rate_type" name="rate_type" required style="width: 100%; height: 45px;">
+                <option value="hour" {% if service.rate_type == 'hour' %}selected{% endif %}>Per Hour</option>
+                <option value="session" {% if service.rate_type == 'session' %}selected{% endif %}>Per Session</option>
+                <option value="job" {% if service.rate_type == 'job' %}selected{% endif %}>Per Job</option>
+            </select>
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="min_hours">Minimum Hours:</label>
+            <input type="text" id="min_hours" name="min_hours" value="{{ service.min_hours }}" required style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <!-- Availability -->
+        <div class="input-box">
+            <label for="available_day">Available Day</label>
+            <select id="available_day" name="available_day" required style="width: 100%; height: 45px;">
+                {% for day in week_days %}
+                <option value="{{ day.value }}" {% if service.available_day == day.value %}selected{% endif %}>{{ day.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="time_slot">Time Slot</label>
+            <select id="time_slot" name="time_slot" required style="width: 100%; height: 45px;">
+                {% for slot in time_slots %}
+                <option value="{{ slot.value }}" {% if service.time_slot == slot.value %}selected{% endif %}>{{ slot.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <!-- Service Details -->
+        <div class="input-box">
+            <label for="type_of_cleaning">Type of Cleaning</label>
+            <select id="type_of_cleaning" name="type_of_cleaning" required style="width: 100%; height: 45px;">
+                {% for cat in cleaning_types %}
+                <option value="{{ cat.value }}" {% if service.type_of_cleaning == cat.value %}selected{% endif %}>{{ cat.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="bring_supplies">Bring Supplies</label>
+            <select id="bring_supplies" name="bring_supplies" required style="width: 100%; height: 45px;">
+                <option value="1" {% if service.bring_supplies == 1 %}selected{% endif %}>Yes</option>
+                <option value="0" {% if service.bring_supplies == 0 %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <br>
+        <div class="input-box">
+            <label for="languages">Languages (Optional)</label>
+            <input type="text" id="languages" name="languages" value="{{ service.languages }}" style="width: 100%; height: 45px;">
+        </div>
+        <br>
+        <div class="form-footer">
+            <a href="{{ url_for('edit_services') }}" class="btn btn-danger">Cancel</a>
+            <button type="submit" class="action-btn update-btn">Confirm Update</button>
+        </div>
+    </form>
+</div>
+<a href="{{ url_for('cleaner_dashboard') }}" class="back-link">Back to Dashboard</a>
+{% endblock %}

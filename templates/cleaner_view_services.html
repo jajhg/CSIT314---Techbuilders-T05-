@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}My Services{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header>My Cleaning Services</header>
+    
+    {% if services %}
+    <div class="users-container">
+        {% for service in services %}
+        <div class="user-card">
+            <div class="user-header">
+                <span class="user-type-badge">{{ service.type_of_cleaning }}</span>
+            </div>
+            
+            <div class="user-details">
+                <p><strong>ID:</strong> {{ service.id }}</p>    
+                
+                <p><strong>Title:</strong> {{ service.title }}</p>
+                <p><strong>Description:</strong> {{ service.description }}</p>
+                <p><strong>Location:</strong> {{ service.location }}</p>
+                <p><strong>Postal Code:</strong> {{ service.postal_code }}</p>
+                <p><strong>Rate and Rate Type:</strong> ${{ "%.2f"|format(service.rate) }} {{ service.rate_type|format_rate_type }}</p>
+                <p><strong>Min Hours:</strong> {{ service.min_hours }}</p>
+                <p><strong>Availability:</strong> {{ service.available_day|title }}, {{ service.time_slot|format_time_slot }}</p>
+                {% if service.languages %}
+                <p><strong>Languages:</strong> {{ service.languages }}</p>
+                {% endif %}
+            </div>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        You haven't created any services yet. <a href="{{ url_for('create_service') }}" class="alert-link">Create your first service here.</a>.
+    </div>
+    {% endif %}
+    
+    <br>
+    <a href="{{ url_for('cleaner_dashboard') }}" class="back-link">Back to Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Edit My Services{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header>Edit My Services</header>
+    
+    {% if services %}
+    <div class="users-container">
+        {% for service in services %}
+        <div class="user-card">
+            <div class="user-header">
+                <h3>{{ service.title }}</h3>
+                <span class="user-type-badge">{{ service.type_of_cleaning }}</span>
+            </div>
+            
+            <div class="user-details">
+                <p><strong>Service ID:</strong> {{ service.id }}</p>
+                <p><strong>Location:</strong> {{ service.location }} ({{ service.postal_code }})</p>
+                <p><strong>Rate:</strong> ${{ "%.2f"|format(service.rate) }} {{ service.rate_type|format_rate_type }}</p>
+                <p><strong>Availability:</strong> {{ service.available_day|title }}, {{ service.time_slot|format_time_slot }}</p>
+            </div>
+            
+            <div class="user-actions">
+                <a href="{{ url_for('update_service', service_id=service.id) }}" class="btn btn-update" >Update</a>
+                <form action="{{ url_for('delete_service.delete_service', service_id=service.id) }}" method="POST" class="delete-form">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this service?')">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>You haven't created any services yet. <a href="{{ url_for('create_service') }}" class="alert-link">Create your first service here.</a>.</p>
+    {% endif %}
+    
+    <br>
+    <a href="{{ url_for('cleaner_dashboard') }}" class="back-link">Back to Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<div class="homepage-container">
+    <h1 class="welcome-heading">Welcome to C2C Freelance Home Cleaners!</h1>
+    
+    {% if 'username' in session %}
+        <div class="logged-in-message">
+            <p>You are logged in as <strong>{{ session['username'] }}</strong>.</p>
+            <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+        </div>
+    {% else %}
+        <div class="access-code-form">
+            <p>To create a new user (only for user admin), please enter the access code below:</p>
+            
+            <form action="{{ url_for('verify_code') }}" method="post">
+                <div class="access-code-input">
+                    <input type="text" name="access_code" placeholder="Enter access code" required>
+                    <button type="submit">Submit</button>
+                </div>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        {% if category == 'code_error' %}
+                            <div class="error-message">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+            </form>
+        </div>
+        
+        <div class="login-link">
+            If you already have an account, please <a href="{{ url_for('login') }}">log in here</a>.
+        </div>
+    {% endif %}
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            {% if category == 'logout' %}
+                <div class="logout-message">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+</div>
+{% endblock %}

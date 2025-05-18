@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Create Cleaning Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Create New Cleaning Service</h1>
+        <div class="user-info">
+            <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-danger ms-2">Logout</a>
+        </div>
+    </div>
+    
+    <form method="POST" action="{{ url_for('create_service') }}" class="service-form">
+        <!-- Basic Service Info -->
+        <div class="dashboard-card mb-4">
+            <h2 class="section-title">📋 Basic Service Info</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="title" class="form-label">Service Title</label>
+                    <input type="text" class="form-control" id="title" name="title" 
+                        placeholder="e.g. Weekly Home Cleaning" required style="width: 100%; height: 45px;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" 
+                        rows="4" placeholder="Describe what's included in the service..." required style="width: 100%; height: 130px;"></textarea>
+            </div>
+        </div>
+
+        <!-- Location -->
+        <div class="dashboard-card mb-4">
+            <h2 class="section-title">📍 Location</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="location" class="form-label">Service Area</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="e.g. Jurong East" required style="width: 100%; height: 45px;">
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="postal_code" class="form-label">Postal Code</label>
+                        <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="e.g. 606112" required style="width: 100%; height: 45px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="dashboard-card mb-4">
+            <h2 class="section-title">💰 Pricing</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="rate" class="form-label">Rate</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" step="0.01" class="form-control" id="rate" 
+                                   name="rate" placeholder="25.00" required>
+                            <select class="form-select" name="rate_type" style="max-width: 150px; width: 100%; height: 45px;">
+                                <option value="hour">Per hour</option>
+                                <option value="session">Per session</option>
+                                <option value="job">Per job</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="min_hours" class="form-label">Minimum Hours (if hourly rate)</label>
+                        <input type="number" class="form-control" id="min_hours" name="min_hours" 
+                               placeholder="2" min="0" style="width: 100%; height: 45px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Availability -->
+        <div class="dashboard-card mb-4">
+            <h2 class="section-title">🕒 Availability</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="available_day" class="form-label">Day Available</label>
+                        <select class="form-select" id="available_day" name="available_day" required style="width: 100%; height: 45px;">
+                            <option value="" disabled selected>Select a day</option>
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                            <option value="sunday">Sunday</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="time_slot" class="form-label">Time Slot</label>
+                        <select class="form-select" id="time_slot" name="time_slot" required style="width: 100%; height: 45px;">
+                            <option value="" disabled selected>Select a time slot</option>
+                            <option value="morning">Morning (8am - 12pm)</option>
+                            <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                            <option value="evening">Evening (5pm - 9pm)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Details -->
+        <div class="dashboard-card mb-4">
+            <h2 class="section-title">🧼 Service Details</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="type_of_cleaning" class="form-label">Type of Cleaning</label>
+                        <select name="type_of_cleaning" required style="width: 100%; height: 45px;">
+                            {% for cat in service_categories %}
+                              <option value="{{ cat }}">{{ cat }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="bring_supplies" class="form-label">Bring Own Supplies?</label>
+                        <select class="form-select" id="bring_supplies" name="bring_supplies" required style="width: 100%; height: 45px;">
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="1">Yes, I bring my own supplies</option>
+                            <option value="2">No, I need supplies provided</option> 
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="languages" class="form-label">Languages Spoken (Optional)</label>
+                <input type="text" class="form-control" id="languages" name="languages" 
+                       placeholder="e.g. English, French, Spanish" style="width: 100%; height: 45px;">
+            </div>
+        </div>
+        <br>
+        <div class="form-footer">
+            <a href="{{ url_for('cleaner_dashboard') }}" class="btn btn-danger">
+                <i class="fas fa-arrow-left me-2"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save me-2"></i> Create Service
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

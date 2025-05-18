@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<br>
+    <header>Manage User Profiles</header>
+    
+    {% if not users %}
+        <p>No users found in the system.</p>
+    {% else %}
+        <div class="users-container">
+            {% for user in users %}
+                <div class="user-card">
+                    <div class="user-header">
+                        <h3>{{ user.fullname }}</h3>
+                        <span class="user-type-badge">{{ user.profile.user_type }}</span>
+                    </div>  
+                    
+                    <div class="user-details">
+                        <p><strong>User ID:</strong> {{ user.id }}</p>
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Status:</strong>
+                            <span class="status-badge {% if user.is_suspended %}suspended{% else %}active{% endif %}">
+                                {% if user.is_suspended %}Suspended{% else %}Active{% endif %}
+                            </span>
+                        </p>
+                        <p><strong>Full Name:</strong> {{ user.fullname }}</p>
+                        <p><strong>Phone:</strong> {{ user.phone }}</p>
+                        <p><strong>Date of Birth:</strong> {{ user.date_of_birth.strftime('%d-%m-%Y') }}</p>
+                        <p><strong>Gender:</strong> {{ user.gender|capitalize }}</p>
+                    </div>
+                    <br>
+                    <div class="user-actions" style="display: flex; gap: 10px;">
+                        <a href="{{ url_for('update_user', user_id=user.id) }}" class="btn btn-update">Update</a>
+                        {% if user.is_suspended %}
+                            <a href="{{ url_for('unsuspend_user', user_id=user.id) }}"
+                                class="btn btn-success"
+                                onclick="return confirm('Are you sure you want to unsuspend this user?')">Unsuspend</a>
+                        {% else %}
+                            <a href="{{ url_for('suspend_user', user_id=user.id) }}" 
+                                class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to suspend this user?')">Suspend</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <br>
+    <a href="{{ url_for('admin_dashboard') }}" class="back-link">Back to Dashboard</a>
+{% endblock %}
