@@ -5,10 +5,16 @@ This is a GitHub monorepo containing the code for our CSIT314 Group Project.
 
 # Project Contributors:
 Poon Jason
+
+
 Aung Sithu Phyoe
+
 Goh Jeng Yee
+
 Macgyver Smith
+
 Chau Kang Jing
+
 Kho Li Ming
 
 # Project Resource
