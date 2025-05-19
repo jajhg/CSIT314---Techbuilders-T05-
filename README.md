@@ -56,7 +56,7 @@ pip install flask_sqlalchemy
 pip install openpyxl
 pip install pandas
 
-3. To connect to phpmyadmin please ensure you have started the Apcahe and MySQl inside the XAMPP controller and Access to http://localhost/phpmyadmin/ in any browsers. 
+3. To connect to phpmyadmin please ensure you have started the Apcahe and MySQL inside the XAMPP controller and Access to http://localhost/phpmyadmin/ in any browsers. 
 
 4. Click (new) the menu , create a database named "c2c_freelance_home_cleaners_db" ,keep utf8mb4_general_ci	and create the table 
 
