@@ -776,7 +776,24 @@ def homeowner_search_services():
 
 @app.route('/homeowner/view_service/<int:service_id>', methods=['GET'])
 def homeowner_view_service_details(service_id):
-    return HomeownerViewService.display_service_details(service_id)
+    if 'user_id' not in session or session.get('user_type') != 'HomeOwner':
+        flash('Please login as a homeowner to view services.', 'error')
+        return redirect(url_for('login'))
+
+    # Fetch service and cleaner info
+    service = CleaningService.query.get_or_404(service_id)
+    ##cleaner = UserProfile.query.get(service.cleaner_id)
+    cleaner= UserAccount.query.get(service.cleaner_id)
+    from extensions import db
+    from app.entity.service_views import ServiceViews
+
+
+    viewer_id = session.get('user_id')
+    if viewer_id and viewer_id != service.cleaner_id:  # don’t count the owner
+        db.session.add(ServiceViews(service_id=service.id, viewer_id=viewer_id))
+        db.session.commit()
+
+    return render_template('homeowner_view_service.html', service=service, cleaner=cleaner)
 
 
 @app.route('/homeowner/save_to_shortlist/<int:service_id>', methods=['POST'])
