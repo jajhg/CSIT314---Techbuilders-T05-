@@ -56,10 +56,14 @@ pip install flask_sqlalchemy
 pip install openpyxl
 pip install pandas
 
-3. Import the file "c2c_freelance_home_cleaners_db.sql" into phpmyadmin
-,to connect to phpmyadmin please ensure you have started the Apcahe and MySQl inside the XAMPP controller and Access to http://localhost/phpmyadmin/ in any browsers.
+3. To connect to phpmyadmin please ensure you have started the Apcahe and MySQl inside the XAMPP controller and Access to http://localhost/phpmyadmin/ in any browsers. 
 
-4. Run python app.py , a fixed port will be generated, access to the port and the program will start.
+4. Click (new) the menu , create a database named "c2c_freelance_home_cleaners_db" ,keep utf8mb4_general_ci	and create the table 
+
+5. Import the file "c2c_freelance_home_cleaners_db.sql" into this database folder
+
+
+6. Run python app.py , a fixed port will be generated, access to the port and the program will start.
 
 # Reminders while running this program:
 1. Please be ensure that the Apcahe and MySQl the XAMPP controller has to be constantly starting/running while running the program, please restart the program when your Apcahe and MySQl was turned off unauthorised inside the XAMPP controller.
