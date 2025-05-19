@@ -50,11 +50,11 @@ Please be ensure that your device contains below softwares to run this program
 
 1. Download the code to your device(local- Download zip) and unzip it on your local coding software
 2. Run below commands 
-pip install flask
-pip install mysql.connector
-pip install flask_sqlalchemy
-pip install openpyxl
-pip install pandas
+<br>pip install flask
+<br>pip install mysql.connector
+<br>pip install flask_sqlalchemy
+<br>pip install openpyxl
+<br>pip install pandas
 
 3. To connect to phpmyadmin please ensure you have started the Apcahe and MySQL inside the XAMPP controller and Access to http://localhost/phpmyadmin/ in any browsers. 
 
