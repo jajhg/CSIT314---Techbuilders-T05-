@@ -1,4 +1,5 @@
 pip install flask
-pip install Faker 
-pip install pandas
+pip install mysql.connector
+pip install flask_sqlalchemy
 pip install openpyxl
+pip install pandas
