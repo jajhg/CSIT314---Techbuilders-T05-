@@ -39,7 +39,7 @@ Unsure what to do before/after downloading? no worries we are guiding you below:
 
 Please be ensure that your device contains below softwares to run this program 
 1. Python(Suggested version above 3.0)
-2. XAMPP controller(This is for handling the SQL database inside local phpmyadmin)
+2. [XAMPP controller](https://www.apachefriends.org/download.html)(This is for handling the SQL database inside local phpmyadmin)
 3. A Coding Software provider which supports Flask and Xampp operation( Visual Studio Code is the most reccomended)
 
 
