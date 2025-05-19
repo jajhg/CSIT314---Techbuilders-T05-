@@ -45,7 +45,7 @@ Please be ensure that your device contains below softwares to run this program
 
 # Procedures:
 
-1. Download the code to your device(<code>- local- Download zip) and unzip it on your local coding software
+1. Download the code to your device(local- Download zip) and unzip it on your local coding software
 2. Run below commands 
 pip install flask
 pip install mysql.connector
