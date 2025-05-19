@@ -28,6 +28,7 @@ Kho Li Ming
 
 📝Documentation(Our final Document)
 
+[Google Documents](https://docs.google.com/document/d/1g8Iu8pVzcl_8_sMqifEEP0aguCscYYEf_VA_5GLP7UA/edit?tab=t.0)
 
 
 
