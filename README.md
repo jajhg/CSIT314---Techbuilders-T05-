@@ -59,7 +59,7 @@ pip install pandas
 3. Import the file "c2c_freelance_home_cleaners_db.sql" into phpmyadmin
  To connect to phpmyadmin please ensure you have started the Apcahe and MySQl inside the XAMPP controller and Access to http://localhost/phpmyadmin/ in any browsers.
 
-4. Run python app.py, a link will be generated, access to the generated port. 
+4. Run python app.py , a fixed port will be generated, access to the port and the program woll start.
 
 # Reminders while running this program:
 1. Please be ensure that the Apcahe and MySQl the XAMPP controller has to be constantly starting/running while running the program, please restart the program when your Apcahe and MySQl was turned off unauthorised inside the XAMPP controller.
