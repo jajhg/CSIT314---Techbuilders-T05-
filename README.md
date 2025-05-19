@@ -21,10 +21,10 @@ Kho Li Ming
 
 
 # Project Planning
-Gantt Chart
+[Gantt Chart]
 
 
-[Taiga Backlogs/Sprint board and Progress Timeline](https://tree.taiga.io/project/pj0327-sim2025q2-techbuilders/timeline)
+📌[Taiga Backlogs/Sprint board and Progress Timeline](https://tree.taiga.io/project/pj0327-sim2025q2-techbuilders/timeline)
 
 📝Documentation(Our final Document)
 
